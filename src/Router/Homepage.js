@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-const Homepage = () => (<h1>Homepage</h1>)
+const HomePage = () => (<h1>HomePage</h1>)
 
-export default Homepage;
+export default HomePage;
