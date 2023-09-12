@@ -9,9 +9,21 @@ const containerStyle = {
   alignItems: 'center',
 };
 
+const formStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  width: '500px',
+};
+
 const buttonStyle = {
   marginTop: '10px',
+  width: '100px',
 };
+
+// const buttonStyle = {
+//   marginTop: '10px',
+// };
 
 class RegistrationForm extends Component {
   constructor(props) {
@@ -66,7 +78,8 @@ class RegistrationForm extends Component {
   render() {
     return (
       <Container maxWidth="xs" style={containerStyle}>
-        <Typography variant="h4">Registration Form</Typography>
+        <Typography variant="h4"></Typography>
+        <form style={formStyle}>
         <TextField
           label="Email"
           type="email"
@@ -105,10 +118,21 @@ class RegistrationForm extends Component {
         >
           Register
         </Button>
+        </form>
         <br />
         {this.state.registrationResult && (
           <Typography variant="body1">{this.state.registrationResult}</Typography>
         )}
+
+        {/* Button to switch to the login form */}
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={this.props.onSwitchToLoginForm}
+          style={buttonStyle}
+        >
+          Back to Login
+        </Button>
       </Container>
     );
   }
