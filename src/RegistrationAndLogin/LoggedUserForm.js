@@ -8,7 +8,7 @@
 //     <div>
 //       <h1>Welcome, {userName}!</h1>
 //       {/* Add any other content or actions you want to show for logged-in users */}
-//       <button onClick={this.props.onLogout}>Logout</button>
+//       <button onClick={props.onLogout}>Logout</button>
 //     </div>
 //   );
 // };
