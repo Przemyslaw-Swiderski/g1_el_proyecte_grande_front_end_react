@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import LoginForm from './RegistrationAndLogin/LoginForm';
 import RegistrationForm from './RegistrationAndLogin/RegistrationForm';
 import LoggedUserForm from './RegistrationAndLogin/LoggedUserForm'; // Import the LoggedUser component
-import { Button, Container } from '@mui/material';
+import { Container } from '@mui/material';
 import RouterReact from './Router/RouterReact';
 
 const containerStyle = {
