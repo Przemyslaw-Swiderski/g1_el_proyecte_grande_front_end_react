@@ -59,6 +59,8 @@ class LoginForm extends Component {
         localStorage.setItem('accessToken', response.data.accessToken);
         localStorage.setItem('refreshToken', response.data.refreshToken);
         localStorage.setItem('userEmail', response.data.userEmail);
+        localStorage.setItem('userName', response.data.userName);
+        localStorage.setItem('userSurname', response.data.userSurname);
         
         // Handle successful login, e.g., redirect or update UI
         console.log('Login successful');
@@ -79,6 +81,7 @@ class LoginForm extends Component {
         <Typography variant="h4"></Typography>
         <form style={formStyle}>
         <TextField
+            size="small"
             label="Email"
             type="email"
             name="email"
@@ -89,6 +92,7 @@ class LoginForm extends Component {
             fullWidth
           />
           <TextField
+            size="small"
             label="Password"
             type="password"
             name="password"
@@ -99,6 +103,7 @@ class LoginForm extends Component {
             fullWidth
           />
           <Button
+            size="small"
             variant="contained"
             color="primary"
             onClick={this.handleLogin}
@@ -114,6 +119,7 @@ class LoginForm extends Component {
 
         {/* Button to switch to the registration form */}
         <Button
+          size="small"
           variant="contained"
           color="primary"
           onClick={this.props.onSwitchToRegistrationForm}

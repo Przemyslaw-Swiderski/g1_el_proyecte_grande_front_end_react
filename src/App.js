@@ -42,6 +42,8 @@ class App extends Component {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('userEmail');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userSurname');
     // localStorage.removeItem('userName'); // Remove any other user-related data as needed
 
     // Update the state to reflect the logout state

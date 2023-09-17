@@ -29,16 +29,22 @@ class LoggedUser extends Component {
     super(props);
 
     this.state = {
-      userName: localStorage.getItem('userEmail'), // You may need to adjust this based on your user data structure
+      userEmail: localStorage.getItem('userEmail'), // You may need to adjust this based on your user data structure
+      userName: localStorage.getItem('userName'), // You may need to adjust this based on your user data structure
+      userSurname: localStorage.getItem('userSurname'), // You may need to adjust this based on your user data structure
     };
   }
 
 render(){
   return (
     <div>
-      <h1>Welcome, {this.state.userName}!</h1>
-      {/* Add any other content or actions you want to show for logged-in users */}
+      <table>
+      <th>
+      <h1>Welcome, {this.state.userName} {this.state.userSurname} !</h1>
+      </th>
+      <th>
       <Button
+          size="small"
           variant="contained"
           color="primary"
           onClick={this.props.onLogout}
@@ -46,6 +52,8 @@ render(){
       >
           Logout
       </Button>
+      </th>
+      </table>
     </div>
   );
 };

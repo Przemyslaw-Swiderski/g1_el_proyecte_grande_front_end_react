@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import HomePage from "./HomePage";
+import ProductsPage from "./ProductsPage";
 import Contact from "./Contact";
 
 
@@ -10,8 +10,8 @@ function RouterReact () {
     return(
       <Router>
         <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/home" element={<HomePage/>}/>
+            <Route path="/" element={<ProductsPage />} />
+            <Route path="/home" element={<ProductsPage/>}/>
             <Route path="/contact" element={<Contact/>}/>
         </Routes>
       </Router>
