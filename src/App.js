@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import LoginForm from './RegistrationAndLogin/LoginForm';
 import RegistrationForm from './RegistrationAndLogin/RegistrationForm';
-import LoggedUserForm from './RegistrationAndLogin/LoggedUserForm'; // Import the LoggedUser component
+import LoginStatusForm from './RegistrationAndLogin/LoginStatusForm'; // Import the LoggedUser component
 import { Container } from '@mui/material';
 import RouterReact from './Router/RouterReact';
 
@@ -15,7 +15,7 @@ class App extends Component {
     this.state = {
       showLoginForm: !localStorage.getItem('accessToken'),
       showRegistrationForm: false,
-      showLoggedUserForm: !!localStorage.getItem('accessToken')
+      showLoginStatusForm: !!localStorage.getItem('accessToken')
     };
   }
 
@@ -30,7 +30,7 @@ class App extends Component {
     // Function to handle successful login
     handleLoginSuccess = () => {
       this.setState({
-        showLoggedUserForm: true,
+        showLoginStatusForm: true,
         showRegistrationForm: false,
         showLoginForm: false,
       });
@@ -48,7 +48,7 @@ class App extends Component {
 
     // Update the state to reflect the logout state
     this.setState({
-      showLoggedUserForm: false,
+      showLoginStatusForm: false,
       showRegistrationForm: false, // Ensure registration form is hidden
       showLoginForm: true,
     });
@@ -70,8 +70,8 @@ class App extends Component {
               onSwitchToLoginForm={this.toggleForms} // Pass callback to switch to LoginForm
             />
           )}
-          {this.state.showLoggedUserForm && (
-            <LoggedUserForm
+          {this.state.showLoginStatusForm && (
+            <LoginStatusForm
               onLogout={this.handleLogout}
             />
           )}
