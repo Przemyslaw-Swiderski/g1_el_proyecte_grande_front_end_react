@@ -71,14 +71,15 @@ render(){
           </Grid>
         </Container> */}
                     <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
-                    <Typography variant="h6">Welcome, {this.state.userName} !</Typography>
-<Button
-                      size="small"
-                      variant="contained"
-                      color="primary"
-                      onClick={this.props.onLogout}
-                      style={buttonStyle}>Logout</Button>
-</div>
+                      <Typography variant="h6">Welcome, {this.state.userName} {this.state.userSurname} !</Typography>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        color="primary"
+                        onClick={this.props.onLogout}
+                        style={buttonStyle}>Logout
+                      </Button>
+                    </div>
       </RootContainer>
 
   );

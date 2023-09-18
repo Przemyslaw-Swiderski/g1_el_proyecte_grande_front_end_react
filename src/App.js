@@ -6,7 +6,7 @@ import { Container } from '@mui/material';
 import RouterReact from './Router/RouterReact';
 
 const containerStyle = {
-  marginTop: '20px',
+  marginTop: '1px',
 };
 
 class App extends Component {
@@ -58,7 +58,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Container maxWidth="xs" style={containerStyle}>
+        <Container maxWidth="false" style={containerStyle}>
           {this.state.showLoginForm && (
             <LoginForm
               onSwitchToRegistrationForm={this.toggleForms} // Pass callback to switch to RegistrationForm
@@ -75,9 +75,12 @@ class App extends Component {
               onLogout={this.handleLogout}
             />
           )}
-        </Container>
+
         <hr/>
+        </Container>
+        <Container maxWidth="false" style={containerStyle}>
         <RouterReact/>
+        </Container>
       </div>
     );
   }

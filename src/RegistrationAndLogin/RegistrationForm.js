@@ -81,6 +81,7 @@ class RegistrationForm extends Component {
         <Typography variant="h4"></Typography>
         <form style={formStyle}>
         <TextField
+          size="small"
           label="Email"
           type="email"
           name="email"
@@ -91,6 +92,7 @@ class RegistrationForm extends Component {
           fullWidth
         />
         <TextField
+          size="small"
           label="Password"
           type="password"
           name="password"
@@ -101,6 +103,7 @@ class RegistrationForm extends Component {
           fullWidth
         />
         <TextField
+          size="small"
           label="Confirm Password"
           type="password"
           name="confirmPassword"
@@ -111,6 +114,7 @@ class RegistrationForm extends Component {
           fullWidth
         />
         <Button
+          size="small"
           variant="contained"
           color="primary"
           onClick={this.handleRegistration}
@@ -126,12 +130,12 @@ class RegistrationForm extends Component {
 
         {/* Button to switch to the login form */}
         <Button
+          size="small"
           variant="contained"
           color="primary"
           onClick={this.props.onSwitchToLoginForm}
           style={buttonStyle}
-        >
-          Back to Login
+        >To Login
         </Button>
       </Container>
     );

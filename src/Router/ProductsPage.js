@@ -102,9 +102,9 @@ function ProductsPage() {
 
   return (
     <RootContainer>
-      <Container>
+      <Container maxWidth="false" >
         <Grid container spacing={3}>
-          <Grid item xs={4}>
+          <Grid item xs={2}>
             <CategoryContainer>
               <Typography variant="h6">Kategorie</Typography>
               {categories.map((category) => (
@@ -119,7 +119,7 @@ function ProductsPage() {
               ))}
             </CategoryContainer>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={10}>
             <ProductContainer>
               {filteredProducts.map((product) => (
                 <Fade in key={product.id}>
