@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { TextField, Button, Typography, Container } from '@mui/material';
+import {
+  TextField,
+  Checkbox,
+  Container,
+  Grid,
+  Paper,
+  Typography,
+  Button,
+  Fade,
+} from "@mui/material";
+import { styled } from "@mui/system";
 
 const containerStyle = {
   marginTop: '20px',
@@ -21,6 +31,17 @@ const buttonStyle = {
   marginTop: '10px',
   width: '100px',
 };
+
+const RootContainer = styled(Paper)({
+  marginTop: "2rem",
+  marginBottom: "2rem",
+  padding: "1rem",
+  transition: "transform 0.2s, box-shadow 0.2s",
+  "&:hover": {
+    transform: "translateY(-5px)",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+  },
+});
 
 class LoginForm extends Component {
   constructor(props) {
@@ -77,6 +98,7 @@ class LoginForm extends Component {
 
   render() {
     return (
+      <RootContainer>
       <Container maxWidth="xs" style={containerStyle}>
         <Typography variant="h4"></Typography>
         <form style={formStyle}>
@@ -109,7 +131,7 @@ class LoginForm extends Component {
             onClick={this.handleLogin}
             style={buttonStyle}
           >
-            Login
+            ZALOGUJ
           </Button>
         </form>
         <br />
@@ -125,10 +147,11 @@ class LoginForm extends Component {
           onClick={this.props.onSwitchToRegistrationForm}
           style={buttonStyle}
         >
-          Register
+          REJESTRACJA
         </Button>
 
       </Container>
+      </RootContainer>
     );
   }
 }
