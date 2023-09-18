@@ -36,47 +36,11 @@ class App extends Component {
       });
     };
 
-  // Function to handle logout
-  handleLogout = () => {
-    // Clear the access and refresh tokens and any other user-related data from local storage
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('userEmail');
-    localStorage.removeItem('userName');
-    localStorage.removeItem('userSurname');
-    // localStorage.removeItem('userName'); // Remove any other user-related data as needed
-
-    // Update the state to reflect the logout state
-    this.setState({
-      showLoginStatusForm: false,
-      showRegistrationCompactForm: false, // Ensure registration form is hidden
-      showLoginCompactForm: true,
-    });
-  };
-
-
   render() {
     return (
       <div className="App">
         <Container maxWidth="false" style={containerStyle}>
-          {this.state.showLoginCompactForm && (
-            <LoginForm
-              onSwitchToRegistrationForm={this.toggleForms} // Pass callback to switch to RegistrationForm
-              onLoginSuccess={this.handleLoginSuccess}
-            />
-          )}
-          {this.state.showRegistrationCompactForm && (
-            <RegistrationForm
-              onSwitchToLoginForm={this.toggleForms} // Pass callback to switch to LoginForm
-            />
-          )}
-          {this.state.showLoginStatusForm && (
-            <LoginStatusForm
-              onLogout={this.handleLogout}
-            />
-          )}
-
-
+            <LoginStatusForm/>
         </Container>
         <Container maxWidth="false" style={containerStyle}>
         <RouterReact/>

@@ -45,11 +45,19 @@ class LoggedUser extends Component {
     super(props);
 
     this.state = {
-      userEmail: localStorage.getItem('userEmail'), // You may need to adjust this based on your user data structure
       userName: localStorage.getItem('userName'), // You may need to adjust this based on your user data structure
       userSurname: localStorage.getItem('userSurname'), // You may need to adjust this based on your user data structure
     };
   }
+
+  // Function to handle logout
+  handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userSurname');
+  };
 
 render(){
   return (
@@ -61,32 +69,38 @@ render(){
             alignItems="center"
             >
             <Grid item xs={11}
-                        container
-                        direction="row"
-                        justifyContent="flex-end"
-                        alignItems="center"
-            >
+                container
+                direction="row"
+                justifyContent="flex-end"
+                alignItems="center"
+                >
               <DescriptionContainer>
-                  <Typography variant="h6">Witaj {this.state.userName} {this.state.userSurname}, życzymy Ci miłego dnia 😃</Typography>
+                    {this.state.userName && (
+                      <Typography variant="h6">Witaj {this.state.userName} {this.state.userSurname}, życzymy Ci miłego dnia !</Typography>
+                      )}
+                    {!this.state.userName && (
+                      <Typography variant="h6">Nie jesteś zalogowany</Typography>
+                      )}
+                    
               </DescriptionContainer>
             </Grid>
             <Grid item xs={1}
-                                                  container
-                                                  direction="row"
-                                                  justifyContent="flex-start"
-                                                  alignItems="center">
+                container
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="center"
+                >
               <ButtonContainer>
                     <Button
                       size="small"
                       variant="contained"
                       color="primary"
-                      onClick={this.props.onLogout}
+                      onClick={() => this.handleLogout()}
                       style={buttonStyle}>WYLOGUJ</Button>
               </ButtonContainer>
             </Grid>
           </Grid>
       </RootContainer>
-
   );
 };
 };
