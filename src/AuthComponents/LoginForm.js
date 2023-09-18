@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { useUser } from './UserContext';
 import { TextField, Button, Typography, Container } from '@mui/material';
 
 const containerStyle = {
@@ -63,6 +64,10 @@ class LoginForm extends Component {
         localStorage.setItem('userSurname', response.data.userSurname);
         
         // Handle successful login, e.g., redirect or update UI
+
+        const { updateUser } = useUser();
+        updateUser({ name: response.data.userName });
+
         console.log('Login successful');
         this.setState({ loginResult: 'Zalogowano poprawnie 😃' });
 

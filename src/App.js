@@ -1,53 +1,34 @@
-import React, { Component } from 'react';
-import LoginForm from './RegistrationAndLogin/LoginCompactForm';
-import RegistrationForm from './RegistrationAndLogin/RegistrationCompactForm';
-import LoginStatusForm from './RegistrationAndLogin/LoginStatusForm'; // Import the LoggedUser component
+import React from 'react';
+import { UserProvider } from './UserContext';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import LoginStatusForm from './AuthComponents/LoginStatusForm';
+import LoginForm from './AuthComponents/LoginForm';
+import RegistrationForm from './AuthComponents/RegistrationForm';
 import { Container } from '@mui/material';
-import RouterReact from './Router/RouterReact';
+
 
 const containerStyle = {
   marginTop: '1px',
 };
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showLoginCompactForm: !localStorage.getItem('accessToken'),
-      showRegistrationCompactForm: false,
-      showLoginStatusForm: !!localStorage.getItem('accessToken')
-    };
-  }
 
-  // Function to toggle between Login and Registration forms
-  toggleForms = () => {
-    this.setState((prevState) => ({
-      showLoginCompactForm: !prevState.showLoginCompactForm,
-      showRegistrationCompactForm: !prevState.showRegistrationCompactForm,
-    }));
-  };
-
-    // Function to handle successful login
-    handleLoginSuccess = () => {
-      this.setState({
-        showLoginStatusForm: true,
-        showRegistrationCompactForm: false,
-        showLoginCompactForm: false,
-      });
-    };
-
-  render() {
-    return (
-      <div className="App">
-        <Container maxWidth="false" style={containerStyle}>
-            <LoginStatusForm/>
+function App() {
+  return (
+    <UserProvider>
+      <Router>
+      <Container maxWidth="false" style={containerStyle}>
+      <LoginStatusForm/>
+        <Switch>
+          <Route path="/login" component={<LoginForm/>} />
+          <Route path="/register" component={<RegistrationForm/>} />
+          <Route path="/" element={<ProductsPage />} />
+          <Route path="/home" element={<ProductsPage/>}/>
+          <Route path="/contact" element={<Contact/>}/>
+        </Switch>
         </Container>
-        <Container maxWidth="false" style={containerStyle}>
-        <RouterReact/>
-        </Container>
-      </div>
-    );
-  }
+      </Router>
+    </UserProvider>
+  );
 }
 
 export default App;
