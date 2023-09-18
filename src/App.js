@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import LoginForm from './RegistrationAndLogin/LoginForm';
-import RegistrationForm from './RegistrationAndLogin/RegistrationForm';
+import LoginForm from './RegistrationAndLogin/LoginCompactForm';
+import RegistrationForm from './RegistrationAndLogin/RegistrationCompactForm';
 import LoginStatusForm from './RegistrationAndLogin/LoginStatusForm'; // Import the LoggedUser component
 import { Container } from '@mui/material';
 import RouterReact from './Router/RouterReact';
@@ -13,8 +13,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showLoginForm: !localStorage.getItem('accessToken'),
-      showRegistrationForm: false,
+      showLoginCompactForm: !localStorage.getItem('accessToken'),
+      showRegistrationCompactForm: false,
       showLoginStatusForm: !!localStorage.getItem('accessToken')
     };
   }
@@ -22,8 +22,8 @@ class App extends Component {
   // Function to toggle between Login and Registration forms
   toggleForms = () => {
     this.setState((prevState) => ({
-      showLoginForm: !prevState.showLoginForm,
-      showRegistrationForm: !prevState.showRegistrationForm,
+      showLoginCompactForm: !prevState.showLoginCompactForm,
+      showRegistrationCompactForm: !prevState.showRegistrationCompactForm,
     }));
   };
 
@@ -31,8 +31,8 @@ class App extends Component {
     handleLoginSuccess = () => {
       this.setState({
         showLoginStatusForm: true,
-        showRegistrationForm: false,
-        showLoginForm: false,
+        showRegistrationCompactForm: false,
+        showLoginCompactForm: false,
       });
     };
 
@@ -49,8 +49,8 @@ class App extends Component {
     // Update the state to reflect the logout state
     this.setState({
       showLoginStatusForm: false,
-      showRegistrationForm: false, // Ensure registration form is hidden
-      showLoginForm: true,
+      showRegistrationCompactForm: false, // Ensure registration form is hidden
+      showLoginCompactForm: true,
     });
   };
 
@@ -59,13 +59,13 @@ class App extends Component {
     return (
       <div className="App">
         <Container maxWidth="false" style={containerStyle}>
-          {this.state.showLoginForm && (
+          {this.state.showLoginCompactForm && (
             <LoginForm
               onSwitchToRegistrationForm={this.toggleForms} // Pass callback to switch to RegistrationForm
               onLoginSuccess={this.handleLoginSuccess}
             />
           )}
-          {this.state.showRegistrationForm && (
+          {this.state.showRegistrationCompactForm && (
             <RegistrationForm
               onSwitchToLoginForm={this.toggleForms} // Pass callback to switch to LoginForm
             />

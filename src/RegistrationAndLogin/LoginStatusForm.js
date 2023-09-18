@@ -67,7 +67,7 @@ render(){
                         alignItems="center"
             >
               <DescriptionContainer>
-                  <Typography variant="h6">Witaj {this.state.userName} {this.state.userSurname} !</Typography>
+                  <Typography variant="h6">Witaj {this.state.userName} {this.state.userSurname}, życzymy Ci miłego dnia 😃</Typography>
               </DescriptionContainer>
             </Grid>
             <Grid item xs={1}
@@ -81,21 +81,10 @@ render(){
                       variant="contained"
                       color="primary"
                       onClick={this.props.onLogout}
-                      style={buttonStyle}>Logout</Button>
+                      style={buttonStyle}>WYLOGUJ</Button>
               </ButtonContainer>
             </Grid>
           </Grid>
-
-                    {/* <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
-                      <Typography variant="h6">Welcome, {this.state.userName} {this.state.userSurname} !</Typography>
-                      <Button
-                        size="small"
-                        variant="contained"
-                        color="primary"
-                        onClick={this.props.onLogout}
-                        style={buttonStyle}>Logout
-                      </Button>
-                    </div> */}
       </RootContainer>
 
   );
