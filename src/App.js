@@ -76,7 +76,7 @@ class App extends Component {
             />
           )}
 
-        <hr/>
+
         </Container>
         <Container maxWidth="false" style={containerStyle}>
         <RouterReact/>

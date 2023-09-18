@@ -16,14 +16,24 @@ const buttonStyle = {
   variant:"contained",
 };
 
-const RootContainer = styled("div")({
+const RootContainer = styled(Paper)({
   marginTop: "2rem",
+  marginBottom: "2rem",
+  padding: "1rem",
+  transition: "transform 0.2s, box-shadow 0.2s",
+  "&:hover": {
+    transform: "translateY(-5px)",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+  },
 });
 
+// const DescriptionContainer = styled(Paper)({
 const DescriptionContainer = styled("div")({
+  marginTop: "8px",
   padding: "1rem",
 });
 
+// const ButtonContainer = styled(Paper)({
 const ButtonContainer = styled("div")({
   padding: "1rem",
 });
@@ -44,33 +54,39 @@ class LoggedUser extends Component {
 render(){
   return (
       <RootContainer>
-        {/* <Container>
-          <Grid
+          <Grid item xs={12}
             container
             direction="row"
             justifyContent="flex-end"
             alignItems="center"
             >
-            <DescriptionContainer>
-                <Grid item xs={11}>
-
-                <Typography variant="h6">Welcome, {this.state.userName} !</Typography>
-
-                </Grid>
-            </DescriptionContainer>
-            <ButtonContainer>
-                <Grid item xs={1}>
+            <Grid item xs={11}
+                        container
+                        direction="row"
+                        justifyContent="flex-end"
+                        alignItems="center"
+            >
+              <DescriptionContainer>
+                  <Typography variant="h6">Witaj {this.state.userName} {this.state.userSurname} !</Typography>
+              </DescriptionContainer>
+            </Grid>
+            <Grid item xs={1}
+                                                  container
+                                                  direction="row"
+                                                  justifyContent="flex-start"
+                                                  alignItems="center">
+              <ButtonContainer>
                     <Button
                       size="small"
                       variant="contained"
                       color="primary"
                       onClick={this.props.onLogout}
                       style={buttonStyle}>Logout</Button>
-                </Grid>
-            </ButtonContainer>
+              </ButtonContainer>
+            </Grid>
           </Grid>
-        </Container> */}
-                    <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
+
+                    {/* <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
                       <Typography variant="h6">Welcome, {this.state.userName} {this.state.userSurname} !</Typography>
                       <Button
                         size="small"
@@ -79,7 +95,7 @@ render(){
                         onClick={this.props.onLogout}
                         style={buttonStyle}>Logout
                       </Button>
-                    </div>
+                    </div> */}
       </RootContainer>
 
   );
