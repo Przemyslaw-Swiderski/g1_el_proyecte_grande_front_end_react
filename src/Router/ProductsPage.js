@@ -52,6 +52,7 @@ function ProductsPage() {
       .then((response) => response.json())
       .then((data) => {
         setCategories(data);
+
       })
       .catch((error) => {
         console.error("Error fetching categories:", error);
@@ -62,6 +63,8 @@ function ProductsPage() {
       .then((response) => response.json())
       .then((data) => {
         setProducts(data);
+
+
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
@@ -82,23 +85,74 @@ function ProductsPage() {
     // setCart(cart.filter((item) => item.id !== product.id));
   };
 
-  // Function to update the selected categories
-  const handleCategoryChange = (event) => {
-    const categoryId = event.target.value;
-    if (event.target.checked) {
-      setSelectedCategories([...selectedCategories, categoryId]);
-    } else {
-      setSelectedCategories(selectedCategories.filter((id) => id !== categoryId));
-    }
-  };
+// Function to update the selected categories and filter products
+const handleCategoryChange = (event) => {
 
-  // Filter products based on selected categories
-  const filteredProducts = products.filter((product) => {
-    if (selectedCategories.length === 0) {
-      return true; // Show all products if no categories are selected.
-    }
-    return selectedCategories.includes(product.categoryId.toString());
-  });
+
+
+  const categoryId = event.target.value;
+  if (event.target.checked) {
+    setSelectedCategories([...selectedCategories, categoryId]);
+  } else {
+    setSelectedCategories(selectedCategories.filter((id) => id !== categoryId));
+  }
+
+  // Call the filterProductsByCategories function to send the request
+  console.log("wchodzi TU")
+  filterProductsByCategories();
+};
+
+
+
+// Function to send a POST request to filter products based on selected categories
+const filterProductsByCategories = () => {
+  const requestData = {
+    categoryIds: selectedCategories.map(Number), // Ensure IDs are numbers
+
+  };
+  console.log(requestData)
+
+  fetch("http://localhost:8081/api/v1/products/bycategories", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // Update the product listing with filtered products
+
+      console.log(data)
+
+      setProducts(data);
+
+    })
+    .catch((error) => {
+      console.error("Error sending request:", error);
+    });
+};
+
+
+// Filter products based on selected categories
+const filteredProducts = products.filter((product) => {
+  if (selectedCategories.length === 0) {
+    return true; // Show all products if no categories are selected.
+  }
+  return selectedCategories.includes(product.categoryId?.toString() || "");
+});
+
+
+
+
+
+  // // Filter products based on selected categories
+  // const filteredProducts = products.filter((product) => {
+  //   if (selectedCategories.length === 0) {
+  //     return true; // Show all products if no categories are selected.
+  //   }
+  //   return selectedCategories.includes(product.categoryId.toString());
+  // });
 
   return (
     <RootContainer>
