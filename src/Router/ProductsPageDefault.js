@@ -39,7 +39,7 @@ const AddToCartButton = styled(Button)({
   marginTop: "1rem",
 });
 
-function ProductsPage() {
+function ProductsPageDefault() {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -190,4 +190,4 @@ const filteredProducts = products.filter((product) => {
   );
 }
 
-export default ProductsPage;
+export default ProductsPageDefault;
