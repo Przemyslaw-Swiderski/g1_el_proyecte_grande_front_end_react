@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import ProductsListingPage from "./ProductsListingPage.js";
-import ProductsPageFunctionalDev from "./ProductsPageFunctionalDev.js";
+import ProductsPageFunctionalDev from "../DevsTemplates/Devs/ProductsPageFunctionalDev.js"
 import Contact from "./Contact";
 import { Container } from '@mui/material';
 

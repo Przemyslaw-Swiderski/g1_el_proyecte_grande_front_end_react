@@ -39,23 +39,15 @@ const AddToCartButton = styled(Button)({
   marginTop: "1rem",
 });
 
-
-
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-          categories: [],
-          products: [],
-          selectedCategories: [],
-          cart: []
-    };
-  }
-
+function ProductsPageDefault() {
+  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [cart, setCart] = useState([]);
 
   // Fetch categories and products from the server
-  // Fetch categories
-  function fetchFirstSetOfData () {
+  useEffect(() => {
+    // Fetch categories
     fetch("http://localhost:8081/api/v1/categories")
       .then((response) => response.json())
       .then((data) => {
@@ -65,18 +57,51 @@ class App extends Component {
       .catch((error) => {
         console.error("Error fetching categories:", error);
       });
+    }, []);
 
+
+    useEffect(() => {
     // Fetch products
+    if (selectedCategories.length === 0) {
+
     fetch("http://localhost:8081/api/v1/products")
       .then((response) => response.json())
       .then((data) => {
-        this.products: data
+        setProducts(data);
+
+
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
       });
-  }
 
+    } else {
+
+      const requestData = {
+        categoryIds: selectedCategories.map(Number).join(','), // Convert to a comma-separated string
+};
+
+              // Categories: JSON.stringify(requestData),
+      fetch("http://localhost:8081/api/v1/products/by-get-by-categories", {
+        method: "GET",
+        headers: {
+          Categories: requestData.categoryIds,
+        },
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          // Update the product listing with filtered products
+    
+          setProducts(data);
+    
+        })
+        .catch((error) => {
+          console.error("Error sending request:", error);
+        });
+
+    }
+    }, [selectedCategories]);
+    
   // Function to add a product to the cart
   const addToCart = (product) => {
     // Implement your logic to add a product to the cart.
@@ -91,79 +116,17 @@ class App extends Component {
     // setCart(cart.filter((item) => item.id !== product.id));
   };
 
-
-// Function to update the selected categories and filter products
-const handleCategoryChange = (event) => {
+const handleCategoryChange  = (event) => {
   const categoryId = event.target.value;
-
-  this.settselectedCategories: categoryId;
-
-  // setSelectedCategories((prevSelectedCategories) => {
-  //   if (event.target.checked) {
-  //     return [...prevSelectedCategories, categoryId];
-  //   } else {
-  //     return prevSelectedCategories.filter((id) => id !== categoryId);
-  //   }
-  // });
-  console.log("console log w 107 linii: " + selectedCategories)
-  // Call the filterProductsByCategories function to send the request
-  filterProductsByCategories();
-};
-console.log("console log w 111 linii: " + selectedCategories)
-// console.log("console log w 110 linii: " + selectedCategories)
-
-// Function to send a POST request to filter products based on selected categories
-// const filterProductsByCategories = () => {
-const filterProductsByCategories = (selectedCategories) => {
-  console.log("console log w 117 linii: " + selectedCategories)
-  const requestData = {
-    categoryIds: selectedCategories.map(Number), // Ensure IDs are numbers
-
-  };
-  console.log("console log w 122 linii: " + requestData)
-  console.log(requestData)
-
-  fetch("http://localhost:8081/api/v1/products/bycategories", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(requestData),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      // Update the product listing with filtered products
-
-      console.log(data)
-
-      setProducts(data);
-
-    })
-    .catch((error) => {
-      console.error("Error sending request:", error);
-    });
-};
-
-
-// Filter products based on selected categories
-const filteredProducts = products.filter((product) => {
-  if (selectedCategories.length === 0) {
-    return true; // Show all products if no categories are selected.
+  
+  if (!selectedCategories.includes(categoryId)) {
+    setSelectedCategories([...selectedCategories, categoryId])
+  } else {
+    setSelectedCategories(selectedCategories.filter((id) => id !== categoryId))
   }
-  return selectedCategories.includes(product.categoryId?.toString() || "");
-});
+};
 
-
-
-
-
-  // // Filter products based on selected categories
-  // const filteredProducts = products.filter((product) => {
-  //   if (selectedCategories.length === 0) {
-  //     return true; // Show all products if no categories are selected.
-  //   }
-  //   return selectedCategories.includes(product.categoryId.toString());
-  // });
+console.log("before return: " + selectedCategories)
 
   return (
     <RootContainer>
@@ -176,9 +139,8 @@ const filteredProducts = products.filter((product) => {
                 <div key={category.id}>
                   <Checkbox
                     value={category.id}
-                    onChange={(event) => handleCategoryChange(event)}
                     // checked={selectedCategories.includes(category.id)}
-                    // console.log(selectedCategories.includes(category.id))
+                    onClick={handleCategoryChange}
                   />
                   {category.name}
                 </div>
@@ -187,7 +149,7 @@ const filteredProducts = products.filter((product) => {
           </Grid>
           <Grid item xs={10}>
             <ProductContainer>
-              {filteredProducts.map((product) => (
+              {products.map((product) => (
                 <Fade in key={product.id}>
                   <ProductCard>
                     <Typography variant="h6">{product.name}</Typography>
@@ -210,6 +172,7 @@ const filteredProducts = products.filter((product) => {
       </Container>
     </RootContainer>
   );
+
 }
 
-export default ProductsPage;
+export default ProductsPageDefault;
