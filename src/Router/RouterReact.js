@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import ProductsPageDefault from "./ProductsPageDefault";
+import ProductsListingPage from "./ProductsListingPage.js";
 import ProductsPageFunctionalDev from "./ProductsPageFunctionalDev.js";
 import Contact from "./Contact";
 import { Container } from '@mui/material';
@@ -16,8 +16,8 @@ function RouterReact () {
       <Container maxWidth="false" style={containerStyle}>
       <Router>
         <Routes>
-            <Route path="/" element={<ProductsPageDefault />} />
-            <Route path="/home" element={<ProductsPageDefault/>}/>
+            <Route path="/" element={<ProductsListingPage />} />
+            <Route path="/home" element={<ProductsListingPage/>}/>
             <Route path="/contact" element={<Contact/>}/>
             <Route path="/dev" element={<ProductsPageFunctionalDev/>}/>
 

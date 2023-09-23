@@ -57,8 +57,13 @@ function ProductsPageDefault() {
       .catch((error) => {
         console.error("Error fetching categories:", error);
       });
+    }, []);
 
+
+    useEffect(() => {
     // Fetch products
+    if (selectedCategories.length === 0) {
+
     fetch("http://localhost:8081/api/v1/products")
       .then((response) => response.json())
       .then((data) => {
@@ -69,8 +74,35 @@ function ProductsPageDefault() {
       .catch((error) => {
         console.error("Error fetching products:", error);
       });
- 
-    }, []);
+
+    } else {
+
+      const requestData = {
+        "categoryIds": selectedCategories.map(Number), // Ensure IDs are numbers
+    
+      };
+      // console.log("wchodzi TU 157: " + requestData)
+    
+      fetch("http://localhost:8081/api/v1/products/bycategories", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // Update the product listing with filtered products
+    
+          setProducts(data);
+    
+        })
+        .catch((error) => {
+          console.error("Error sending request:", error);
+        });
+
+    }
+    }, [selectedCategories]);
     
   // Function to add a product to the cart
   const addToCart = (product) => {
@@ -86,109 +118,17 @@ function ProductsPageDefault() {
     // setCart(cart.filter((item) => item.id !== product.id));
   };
 
-// Function to update the selected categories and filter products
-// const handleCategoryChange = (event) => {
-
-
-  // let categoryId = event.target.value;
-
-//   setSelectedCategories((prevSelectedCategories) => {
-//   if (event.target.checked) {
-//     // console.log("wchodzi TU 95: " + categoryId)
-//     // console.log("wchodzi TU 96: " + typeof selectedCategories)
-//     // const updateSelectedCategories = (categoryId) => {
-
-
-//     return [...prevSelectedCategories, categoryId];
-//         // setSelectedCategories([...selectedCategories, categoryId]);
-//   // }
-//   // updateSelectedCategories()
-//   // console.log("wchodzi TU 101: " + selectedCategories)
-// } else {
-//   console.log("wchodzi TU 104: " + categoryId);
-//   return prevSelectedCategories.filter((id) => id !== categoryId);
-// }
-//   });
-
-//   // Call the filterProductsByCategories function to send the request
-//   console.log("wchodzi TU 108: " + selectedCategories)
-//   filterProductsByCategories();
-// };
-
-
 const handleCategoryChange  = (event) => {
   const categoryId = event.target.value;
   
-  // const updatedSelectedCategories = event.target.checked
-  //   ? [...selectedCategories, categoryId]
-  //   : selectedCategories.filter((id) => id !== categoryId);
-  //  setSelectedCategories(updatedSelectedCategories);
-
   if (!selectedCategories.includes(categoryId)) {
-
     setSelectedCategories([...selectedCategories, categoryId])
-    // setIsCheckedCategoryChecbox(true)
-    // console.log("wchodzi TU 132: " + selectedCategories);
   } else {
-
     setSelectedCategories(selectedCategories.filter((id) => id !== categoryId))
-    // setIsCheckedCategoryChecbox(false)
-    // console.log("wchodzi TU 137: " + selectedCategories);
   }
-
-
-  filterProductsByCategories();
-
 };
 
-
-
-
-
-
-
-
-
-// Function to send a POST request to filter products based on selected categories
-const filterProductsByCategories = () => {
-  const requestData = {
-    "categoryIds": selectedCategories.map(Number), // Ensure IDs are numbers
-
-  };
-  // console.log("wchodzi TU 157: " + requestData)
-
-  fetch("http://localhost:8081/api/v1/products/bycategories", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(requestData),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      // Update the product listing with filtered products
-
-      // console.log("wchodzi TU 169: " + data)
-
-      setProducts(data);
-
-    })
-    .catch((error) => {
-      console.error("Error sending request:", error);
-    });
-};
-
-// useEffect(() => {
-// Filter products based on selected categories
-const filteredProducts = products.filter((product) => {
-  if (selectedCategories.length === 0) {
-  // if (true) {
-    return true; // Show all products if no categories are selected.
-  }
-  console.log("wchodzi TU 186: " + selectedCategories)
-  return selectedCategories.includes(product.categoryId?.toString() || "");
-});
-// }, []);
+console.log("before return: " + selectedCategories)
 
   return (
     <RootContainer>
@@ -201,10 +141,8 @@ const filteredProducts = products.filter((product) => {
                 <div key={category.id}>
                   <Checkbox
                     value={category.id}
-                    checked={selectedCategories.includes(category.id)}
+                    // checked={selectedCategories.includes(category.id)}
                     onClick={handleCategoryChange}
-
-
                   />
                   {category.name}
                 </div>
@@ -213,7 +151,7 @@ const filteredProducts = products.filter((product) => {
           </Grid>
           <Grid item xs={10}>
             <ProductContainer>
-              {filteredProducts.map((product) => (
+              {products.map((product) => (
                 <Fade in key={product.id}>
                   <ProductCard>
                     <Typography variant="h6">{product.name}</Typography>
@@ -236,6 +174,7 @@ const filteredProducts = products.filter((product) => {
       </Container>
     </RootContainer>
   );
+
 }
 
 export default ProductsPageDefault;

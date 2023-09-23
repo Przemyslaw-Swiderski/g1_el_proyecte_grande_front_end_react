@@ -59,7 +59,7 @@ class App extends Component {
     return (
       <div className="App">
         <Container maxWidth="false" style={containerStyle}>
-          {/* {this.state.showLoginCompactForm && (
+          {this.state.showLoginCompactForm && (
             <LoginForm
               onSwitchToRegistrationForm={this.toggleForms} // Pass callback to switch to RegistrationForm
               onLoginSuccess={this.handleLoginSuccess}
@@ -74,7 +74,7 @@ class App extends Component {
             <LoginStatusForm
               onLogout={this.handleLogout}
             />
-          )} */}
+          )}
 
 
         </Container>
